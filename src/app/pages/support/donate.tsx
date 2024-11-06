@@ -1,5 +1,12 @@
+import { RouteId } from "../../common/types";
+import SectionLayout from "../../common/section-layout";
+
 const Donate = () => {
-  return <div>This is the Donate Section</div>;
+  return (
+    <SectionLayout id={RouteId.donate}>
+        <div>This is the Donate Section</div>
+    </SectionLayout>
+  );
 };
 
 export default Donate;
