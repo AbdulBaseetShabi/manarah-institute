@@ -63,7 +63,7 @@ const NavigationBarDesktop = () => {
               }
 
               return (
-                <li>
+                <li key={index}>
                   <div className="dropdown dropdown-bottom dropdown-end dropdown-hover">
                     <div tabIndex={0} role="button">
                       {label}
@@ -72,8 +72,8 @@ const NavigationBarDesktop = () => {
                       tabIndex={0}
                       className="dropdown-content menu p-2 z-[1] w-44 p-2 shadow bg-white"
                     >
-                      {sub_routes.map(({ id, label }) => (
-                        <li>
+                      {sub_routes.map(({ id, label }, index) => (
+                        <li key={index}>
                           <Link href={id}>{label}</Link>
                         </li>
                       ))}
