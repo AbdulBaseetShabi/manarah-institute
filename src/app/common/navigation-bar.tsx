@@ -1,50 +1,6 @@
 import Link from "next/link";
-import { Route } from "./types";
+import routes from "./routes";
 import Button from "./button";
-
-const routes: Route[] = [
-  {
-    id: "home",
-    label: "Home",
-  },
-  {
-    id: "events",
-    label: "Events",
-  },
-  {
-    id: "core",
-    label: "Team",
-    sub_routes: [
-      {
-        id: "core",
-        label: "Core Team",
-      },
-      {
-        id: "board",
-        label: "Advisory Board",
-      },
-    ],
-  },
-  {
-    id: "volunteer",
-    label: "Support",
-    sub_routes: [
-      {
-        id: "volunteer",
-        label: "Volunteer",
-      },
-      {
-        id: "donate",
-        label: "Donate",
-        hide: true,
-      },
-    ],
-  },
-  {
-    id: "contact",
-    label: "Contact Us",
-  },
-];
 
 const NavigationBarDesktop = () => {
   return (
@@ -57,7 +13,7 @@ const NavigationBarDesktop = () => {
               if (!sub_routes) {
                 return (
                   <li key={index}>
-                    <Link href={id}>{label}</Link>
+                    <Link href={`#${id}`}>{label}</Link>
                   </li>
                 );
               }
@@ -74,7 +30,7 @@ const NavigationBarDesktop = () => {
                     >
                       {sub_routes.map(({ id, label }, index) => (
                         <li key={index}>
-                          <Link href={id}>{label}</Link>
+                          <Link href={`#${id}`}>{label}</Link>
                         </li>
                       ))}
                     </ul>
@@ -122,7 +78,7 @@ const NavigationBarMobile = () => {
               if (!sub_routes) {
                 return (
                   <li key={index}>
-                    <Link href={id}>{label}</Link>
+                    <Link href={`#${id}`}>{label}</Link>
                   </li>
                 );
               }
@@ -134,7 +90,7 @@ const NavigationBarMobile = () => {
 
                 return (
                   <li key={index}>
-                    <Link href={id}>{label}</Link>
+                    <Link href={`#${id}`}>{label}</Link>
                   </li>
                 );
               });
