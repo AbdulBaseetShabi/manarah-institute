@@ -4,7 +4,9 @@ import { RouteId } from "../common/types";
 const Home = () => {
   return (
     <PageLayout id={RouteId.home}>
-      <div>This is the Home Page</div>
+      <div className="min-w-100 h-4/5 bg-red-300 rounded-lg">
+
+      </div>
     </PageLayout>
   );
 };
