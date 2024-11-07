@@ -105,10 +105,10 @@ const NavigationBarMobile = () => {
 
 const NavigationBar = () => {
   return (
-    <>
+    <div className="shadow-md">
       <NavigationBarMobile />
       <NavigationBarDesktop />
-    </>
+    </div>
   );
 };
 export default NavigationBar;
