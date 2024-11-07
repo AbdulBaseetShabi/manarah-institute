@@ -3,7 +3,7 @@ import { RouteId } from "../common/types";
 
 const Home = () => {
   return (
-    <PageLayout id={RouteId.home}>
+    <PageLayout id={RouteId.home} fixed={true}>
       <div className="min-w-100 h-4/5 bg-red-300 rounded-lg">
 
       </div>
