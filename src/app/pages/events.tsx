@@ -1,5 +1,5 @@
 import EventCard from "../common/cards/event-card";
-import PageLayout from "../common/page-layout";
+import PageLayout from "../common/layout/page-layout";
 import Title from "../common/title";
 import { RouteId } from "../common/types";
 

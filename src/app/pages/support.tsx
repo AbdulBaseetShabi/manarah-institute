@@ -1,4 +1,4 @@
-import PageLayout from "../common/page-layout";
+import PageLayout from "../common/layout/page-layout";
 import { RouteId } from "../common/types";
 import Donate from "./support/donate";
 import Volunteer from "./support/volunteer";
