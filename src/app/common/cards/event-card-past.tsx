@@ -1,8 +1,8 @@
-interface EventCardProps {
+interface PastEventCardProps {
     index: number;
 }
 
-const EventCard = ({ index }: EventCardProps) => {
+const PastEventCard = ({ index }: PastEventCardProps) => {
     const isEvenIndex = (index / 2) === 0;
 
     return (
@@ -18,7 +18,7 @@ const EventCard = ({ index }: EventCardProps) => {
     );
 }
 
-export default EventCard
+export default PastEventCard
 
 // origin-bottom -rotate-12 -translate-x-full
 
