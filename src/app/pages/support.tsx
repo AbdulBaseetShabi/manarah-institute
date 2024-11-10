@@ -6,8 +6,8 @@ import Volunteer from "./support/volunteer";
 const Support = () => {
   return (
     <PageLayout id={RouteId.support}>
-      <div>This is the Support Page</div>
       <Volunteer />
+      <div className="divider w-full md:w-1/2 mx-auto my-32" />
       <Donate />
     </PageLayout>
   );
