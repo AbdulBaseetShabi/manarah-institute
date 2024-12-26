@@ -1,4 +1,4 @@
-interface TeamMemberProp {
+export interface TeamMemberProp {
     gender: 'MALE' | 'FEMALE',
     name: string;
     role: string;
@@ -13,7 +13,7 @@ const genderColorMapping: { [key in TeamMemberProp['gender']]: string} = {
 const TeamMember = ({ gender, role, name }: TeamMemberProp) => {
   return (
     <div className="mx-8 my-4">
-      <div className={`w-40 h-40 rounded-full ${genderColorMapping[gender]}`}>
+      <div className={`w-40 h-40 rounded-full mx-auto ${genderColorMapping[gender]}`}>
         
       </div>
       <div className="w-full text-center mt-2">
