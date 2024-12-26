@@ -1,6 +1,6 @@
 import Button from "../button";
 
-interface UpcomingEventCardProps {
+export interface UpcomingEventCardProps {
   title: string;
   description: string;
   location: string;
