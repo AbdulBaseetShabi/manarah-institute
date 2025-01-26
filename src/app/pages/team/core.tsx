@@ -20,18 +20,18 @@ const teamMembers: TeamMemberProp[] = [
   },
   {
     gender: "MALE",
-    name: "Head of Administration",
-    role: "Humzah Ahmad",
+    role: "Head of Administration",
+    name: "Humzah Ahmad",
   },
   {
     gender: "MALE",
-    name: "Head of Finance",
-    role: "Syed Meeran",
+    role: "Head of Finance",
+    name: "Syed Meeran",
   },
   {
     gender: "MALE",
-    name: "Head of Volunteer Strategy",
-    role: "Sundus Abbas",
+    role: "Head of Volunteer Strategy",
+    name: "Sundus Abbas",
   },
   {
     gender: "FEMALE",
