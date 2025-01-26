@@ -5,6 +5,7 @@ const Donate = () => {
   return (
     <SectionLayout id={RouteId.donate}>
         <div>This is the Donate Section</div>
+        hadith
     </SectionLayout>
   );
 };
