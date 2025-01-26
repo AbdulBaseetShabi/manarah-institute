@@ -9,9 +9,9 @@ const Volunteer = () => {
       <div className="flex flex-wrap">
         <div className="md:w-1/2 flex">
           <div className="w-full flex flex-col justify-center">
-            <h3 className="text-4xl md:text-6xl font-black">
+            <h2 className="text-4xl md:text-6xl font-black">
               Volunteer with Us
-            </h3>
+            </h2>
             <div className="block mt-4 md:hidden h-36 relative">
               <Image src="./community.svg" alt="Community" fill={true} />
             </div>
@@ -38,4 +38,4 @@ const Volunteer = () => {
 
 export default Volunteer;
 
-// {/* <h3 className="text-6xl md:text-9xl font-black">Volunteer with Us</h3> */}
+// {/* <h2 className="text-6xl md:text-9xl font-black">Volunteer with Us</h2> */}
