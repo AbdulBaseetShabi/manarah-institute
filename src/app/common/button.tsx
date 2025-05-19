@@ -11,7 +11,7 @@ const Button: React.FC<{
     : "custom-button bg-white text-black";
   return (
     <button
-      className={`border text-center py-1 px-3.5 w-full shadow-md ${colorProperties}`}
+      className={`border text-center py-1 px-3.5 w-full rounded-full ${colorProperties}`}
       style={{
         border: "2px solid #3A3042",
       }}

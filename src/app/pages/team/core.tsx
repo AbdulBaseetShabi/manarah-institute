@@ -9,7 +9,7 @@ const teamMembers: TeamMemberProp[] = [
     role: "Head of Executive Operations",
   },
   {
-    gender: "FEMALE",
+    gender: "MALE",
     role: "Head of Religious Affairs",
     name: "Ehsaan Khan",
   },
@@ -23,13 +23,13 @@ const teamMembers: TeamMemberProp[] = [
     role: "Head of Administration",
     name: "Humzah Ahmad",
   },
+  // {
+  //   gender: "MALE",
+  //   role: "Head of Finance",
+  //   name: "Syed Meeran",
+  // },
   {
-    gender: "MALE",
-    role: "Head of Finance",
-    name: "Syed Meeran",
-  },
-  {
-    gender: "MALE",
+    gender: "FEMALE",
     role: "Head of Volunteer Strategy",
     name: "Sundus Abbas",
   },
@@ -48,7 +48,9 @@ const CoreTeam = () => {
       </h2>
       <div className="flex flex-wrap justify-around">
         {teamMembers.map((teamMember, index) => (
-          <TeamMember key={index} {...teamMember} />
+          <div className="w-1/4 min-w-56" key={index}>
+            <TeamMember key={index} {...teamMember} />
+          </div>
         ))}
       </div>
     </SectionLayout>

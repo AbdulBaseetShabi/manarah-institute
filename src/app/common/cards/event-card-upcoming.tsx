@@ -1,13 +1,15 @@
+import React from "react";
+import Image from "next/image";
 import Button from "../button";
+import HorizontalLine from "../horizontal-line";
 
 export interface UpcomingEventCardProps {
   title: string;
-  description: string;
+  description?: string;
   location: string;
   date: Date;
   startTime: string;
   endTime: string;
-  isPastEvent?: boolean;
 }
 
 export const UpcomingEventCard = ({
@@ -17,36 +19,38 @@ export const UpcomingEventCard = ({
   date,
   startTime,
   endTime,
-  isPastEvent = false,
 }: UpcomingEventCardProps) => {
   const eventDuration = `${date.toLocaleDateString("en-us", {
     month: "long",
     day: "2-digit",
     year: "numeric",
-  })} @ ${startTime} - ${endTime}`;
+  })} | ${startTime} - ${endTime}`;
 
   return (
-    <div className="shadow-md border p-4 mt-4">
-      <div className="flex flex-wrap">
-        <div className="w-32 text-center hidden md:block">
-          <div className="w-full font-extralight">
-            {date
-              .toLocaleDateString("en-us", { weekday: "long" })
-              .toUpperCase()}
+    <div
+      style={{
+        width: "368px",
+      }}
+    >
+      <div className="p-2 border bg-white rounded w-fit shadow">
+        <Image src="/placeholder.png" height={350} width={350} alt={title} />
+      </div>
+      <div className="my-4">
+        <div className="font-bold">{title}</div>
+        <div className="font-light">{eventDuration}</div>
+        <p className="font-light">
+          <span className="font-medium">Location:</span> {location}
+        </p>
+        {description && (
+          <div>
+            <HorizontalLine />
+            <p>{description}</p>
+            <HorizontalLine />
           </div>
-          <div className="w-full font-bold">{date.getDate()}</div>
-        </div>
-        <div className="flex flex-col w-1/2 grow">
-          <div className="font-light">{eventDuration}</div>
-          <div className="font-bold">{title}</div>
-          <p className="font-light italic">{location}</p>
-          <p className="mt-2">{description}</p>
-          {!isPastEvent ? (
-            <div className="w-full mt-3 max-w-96 self-end">
-              <Button text="Sign Up" link="" />
-            </div>
-          ) : null}
-        </div>
+        )}
+      </div>
+      <div className="w-full mt-3 max-w-96 self-end shadow-2xl rounded-full">
+        <Button text="Signup for Event" link="" />
       </div>
     </div>
   );
