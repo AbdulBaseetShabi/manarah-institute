@@ -1,27 +1,33 @@
 import Link from "next/link";
 import routes from "./routes";
 import Button from "./button";
+import { LeftSlider, RightSlider } from "./animation";
 
 const NavigationBarDesktop = () => {
   return (
     <nav>
-      <div className="navbar hidden lg:flex">
-        <div className="navbar-start">Logo</div>
-        <div className="navbar-end flex">
+      <div className="navbar hidden md:flex">
+        <LeftSlider className="navbar-start pl-4">Logo</LeftSlider>
+        <RightSlider className="navbar-end flex">
           <ul className="menu menu-horizontal px-1">
             {routes.map(({ id, label, sub_routes }, index) => {
               if (!sub_routes) {
                 return (
                   <li key={index}>
-                    <Link href={`#${id}`}>{label}</Link>
+                    <a
+                      href={`#${id}`}
+                      className="hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    >
+                      {label}
+                    </a>
                   </li>
                 );
               }
 
               return (
                 <li key={index}>
-                  <div className="dropdown dropdown-bottom dropdown-end dropdown-hover">
-                    <div tabIndex={0} role="button">
+                  <div className="dropdown dropdown-bottom dropdown-end dropdown-hover hover:bg-gray-700 hover:text-white">
+                    <div tabIndex={0} className="text-sm font-medium">
                       {label}
                     </div>
                     <ul
@@ -30,7 +36,12 @@ const NavigationBarDesktop = () => {
                     >
                       {sub_routes.map(({ id, label }, index) => (
                         <li key={index}>
-                          <Link href={`#${id}`}>{label}</Link>
+                          <a
+                            href={`#${id}`}
+                            className="hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium text-black cursor-pointer"
+                          >
+                            {label}
+                          </a>
                         </li>
                       ))}
                     </ul>
@@ -40,10 +51,10 @@ const NavigationBarDesktop = () => {
             })}
           </ul>
           <>|</>
-          <div className="mx-4">
-            <Button text="Donate" link={""} />
+          <div className="mx-2">
+            <Button link={""}>{"Donate"}</Button>
           </div>
-        </div>
+        </RightSlider>
       </div>
     </nav>
   );
@@ -51,7 +62,7 @@ const NavigationBarDesktop = () => {
 
 const NavigationBarMobile = () => {
   return (
-    <nav className="navbar flex lg:hidden justify-between">
+    <nav className="navbar flex md:hidden justify-between">
       <div className="navbar-center">Logo</div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">
@@ -77,8 +88,13 @@ const NavigationBarMobile = () => {
             {routes.map(({ id, label, sub_routes }, index) => {
               if (!sub_routes) {
                 return (
-                  <li key={index}>
-                    <Link href={`#${id}`}>{label}</Link>
+                  <li
+                    key={index}
+                    className="hover:bg-[#3A3042] text-black hover:text-white rounded-md"
+                  >
+                    <a href={`#${id}`} className="">
+                      {label}
+                    </a>
                   </li>
                 );
               }
@@ -95,7 +111,7 @@ const NavigationBarMobile = () => {
                 );
               });
             })}
-            <Button text="Donate" link={""} />
+            <Button link={""}>{"Donate"}</Button>
           </ul>
         </div>
       </div>

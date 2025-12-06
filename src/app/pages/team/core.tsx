@@ -1,6 +1,7 @@
-import { RouteId } from "../../common/types";
-import SectionLayout from "../../common/layout/section-layout";
-import TeamMember, { TeamMemberProp } from "../../common/team-member";
+import { RouteId } from "@/app/common/types";
+import SectionLayout from "@/app/common/layout/section-layout";
+import TeamMember, { TeamMemberProp } from "@/app/common/team-member";
+import Title from "@/app/common/title";
 
 const teamMembers: TeamMemberProp[] = [
   {
@@ -14,6 +15,11 @@ const teamMembers: TeamMemberProp[] = [
     name: "Ehsaan Khan",
   },
   {
+    gender: "FEMALE",
+    role: "Head of Volunteer Strategy",
+    name: "Sundus Abbas",
+  },
+  {
     gender: "MALE",
     name: "Hasan Syed",
     role: "Head of External Relations",
@@ -22,16 +28,6 @@ const teamMembers: TeamMemberProp[] = [
     gender: "MALE",
     role: "Head of Administration",
     name: "Humzah Ahmad",
-  },
-  // {
-  //   gender: "MALE",
-  //   role: "Head of Finance",
-  //   name: "Syed Meeran",
-  // },
-  {
-    gender: "FEMALE",
-    role: "Head of Volunteer Strategy",
-    name: "Sundus Abbas",
   },
   {
     gender: "FEMALE",
@@ -43,12 +39,10 @@ const teamMembers: TeamMemberProp[] = [
 const CoreTeam = () => {
   return (
     <SectionLayout id={RouteId.core}>
-      <h2 className="text-4xl md:text-5xl text-center font-black mb-7">
-        Core Team
-      </h2>
+      <Title title="Core Team"/>
       <div className="flex flex-wrap justify-around">
         {teamMembers.map((teamMember, index) => (
-          <div className="w-1/4 min-w-56" key={index}>
+          <div className="w-1/2 lg:w-1/4" key={index}>
             <TeamMember key={index} {...teamMember} />
           </div>
         ))}
@@ -58,8 +52,3 @@ const CoreTeam = () => {
 };
 
 export default CoreTeam;
-
-// installing git
-// creating or updating the design on the website using figma
-
-// send color palette

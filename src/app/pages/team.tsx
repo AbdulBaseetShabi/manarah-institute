@@ -5,9 +5,11 @@ import CoreTeam from "./team/core";
 
 const Team = () => {
   return (
-    <PageLayout id={RouteId.team}>
-      <CoreTeam />
-      <AdvisoryBoard />
+    <PageLayout id={RouteId.team} backgroundColor="ghostwhite">
+      <div className="flex flex-col gap-16">
+        <CoreTeam />
+        <AdvisoryBoard />
+      </div>
     </PageLayout>
   );
 };

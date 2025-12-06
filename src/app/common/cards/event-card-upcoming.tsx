@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Button from "../button";
-import HorizontalLine from "../horizontal-line";
+import { Calendar, Clock, ExternalLink, MapPin } from "lucide-react";
+import { LeftSlider } from "../animation";
 
 export interface UpcomingEventCardProps {
   title: string;
@@ -20,38 +21,51 @@ export const UpcomingEventCard = ({
   startTime,
   endTime,
 }: UpcomingEventCardProps) => {
-  const eventDuration = `${date.toLocaleDateString("en-us", {
-    month: "long",
-    day: "2-digit",
-    year: "numeric",
-  })} | ${startTime} - ${endTime}`;
-
   return (
-    <div
-      style={{
-        width: "368px",
-      }}
-    >
-      <div className="p-2 border bg-white rounded w-fit shadow">
-        <Image src="/placeholder.png" height={350} width={350} alt={title} />
+    <LeftSlider className="flex flex-col gap-4 rounded-xl py-6 hover:shadow-xl hover:shadow-slate-200/50 border bg-white/80 backdrop-blur-sm">
+      <div className="relative h-48">
+        <Image
+          src={"/placeholder.png"}
+          alt={title}
+          fill
+          className="object-cover"
+        />
       </div>
-      <div className="my-4">
-        <div className="font-bold">{title}</div>
-        <div className="font-light">{eventDuration}</div>
-        <p className="font-light">
-          <span className="font-medium">Location:</span> {location}
-        </p>
-        {description && (
-          <div>
-            <HorizontalLine />
-            <p>{description}</p>
-            <HorizontalLine />
+
+      {/* Header */}
+      <div className="flex flex-col gap-1.5 px-6">
+        <h3 className="font-semibold text-xl text-slate-800 mb-2">{title}</h3>
+        <div className="flex gap-1 text-sm text-gray-600 flex-col">
+          <div className="flex items-center gap-1">
+            <Calendar size={16} />
+            {date.toLocaleDateString("en-us", {
+              month: "long",
+              day: "2-digit",
+              year: "numeric",
+            })}
           </div>
-        )}
+          <div className="flex items-center gap-1">
+            <Clock size={16} />
+            {`${startTime} - ${endTime}`}
+          </div>
+          <div className="flex items-center gap-1">
+            <MapPin size={16} />
+            {location}
+          </div>
+        </div>
       </div>
-      <div className="w-full mt-3 max-w-96 self-end shadow-2xl rounded-full">
-        <Button text="Signup for Event" link="" />
+      {/* Content */}
+      <div className="px-6">
+        <p className="text-sm text-gray-700 mb-4 leading-relaxed">
+          {description}
+        </p>
+        <Button link={""} fullWidth>
+          <div className="flex justify-center items-center font-medium">
+            Sign Up
+            <ExternalLink size={16} className="ml-2" />
+          </div>
+        </Button>
       </div>
-    </div>
+    </LeftSlider>
   );
 };

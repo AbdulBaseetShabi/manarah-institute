@@ -1,5 +1,5 @@
-import { RouteId } from "../../common/types";
-import SectionLayout from "../../common/layout/section-layout";
+import { RouteId } from "@/app/common/types";
+import SectionLayout from "@/app/common/layout/section-layout";
 
 const Donate = () => {
   return (

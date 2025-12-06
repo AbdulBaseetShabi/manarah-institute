@@ -9,9 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@atlaskit/flag": "^17.3.1",
+    "@atlaskit/form": "^12.0.14",
+    "@atlaskit/textfield": "^8.0.8",
+    "email-validator": "^2.0.4",
+    "lucide-react": "^0.536.0",
+    "motion": "^12.23.12",
     "next": "15.0.2",
     "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028"
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
+    "react-multi-carousel": "^2.8.6"
   },
   "devDependencies": {
     "@types/node": "^20",

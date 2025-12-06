@@ -1,5 +1,13 @@
+import { UpSlider } from "./animation";
+
 const Title = ({ title }: { title: string }) => {
-  return <h2 className="w-full text-center text-3xl font-bold tracking-wide">{title}</h2>;
+  return (
+    <UpSlider>
+      <h2 className="w-full text-4xl font-bold text-center mb-16 text-slate-800">
+        {title}
+      </h2>
+    </UpSlider>
+  );
 };
 
 export default Title;
