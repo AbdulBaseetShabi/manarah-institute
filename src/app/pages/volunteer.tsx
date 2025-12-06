@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { RouteId } from "../../common/types";
-import SectionLayout from "../../common/layout/section-layout";
-import Button from "../../common/button";
+import { RouteId } from "../common/types";
+import Button from "../common/button";
 import { LeftSlider, RightSlider } from "@/app/common/animation";
+import PageLayout from "@/app/common/layout/page-layout";
 
 const Volunteer = () => {
   return (
-    <SectionLayout id={RouteId.volunteer}>
+    <PageLayout id={RouteId.volunteer}>
       <div className="flex flex-wrap">
         <div className="md:w-1/2 flex">
           <RightSlider className="w-full flex flex-col justify-center">
@@ -33,10 +33,8 @@ const Volunteer = () => {
           <Image src="/community.svg" alt="Community" fill={true} />
         </LeftSlider>
       </div>
-    </SectionLayout>
+    </PageLayout>
   );
 };
 
 export default Volunteer;
-
-// {/* <h2 className="text-6xl md:text-9xl font-black">Volunteer with Us</h2> */}

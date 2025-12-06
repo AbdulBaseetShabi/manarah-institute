@@ -2,7 +2,7 @@ import NavigationBar from "./common/navigation-bar";
 import Footer from "./pages/footer";
 import Contact from "./pages/contact";
 import Home from "./pages/home";
-import Support from "./pages/support";
+import Volunteer from "./pages/volunteer";
 import Team from "./pages/team";
 import Testimonials from "./pages/testimonials";
 import Values from "./pages/values";
@@ -17,7 +17,7 @@ const Main = () => {
         <Values/>
         <Events />
         <Team />
-        <Support />
+        <Volunteer />
         <Testimonials/>
         <Contact/>
         <Footer/>

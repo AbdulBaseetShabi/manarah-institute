@@ -1,13 +1,16 @@
 export enum RouteId {
   home = "home",
+  values = "values",
   events = "events",
+  upcomingEvents = "upcoming-events",
+  annualEvents = "annual-events",
   core = "core",
   board = "board",
   volunteer = "volunteer",
   donate = "donate",
   contact = "contact",
   team = "team",
-  support = "support"
+  testimonials = "testimonials"
 }
 
 export interface Route {
@@ -37,4 +40,14 @@ export interface Value {
   titleEnglish: string;
   description: string;
   icon: string;
+}
+
+export interface Testimonial {
+  testimony: string;
+  name: string;
+}
+
+export interface FooterLink {
+  description: string;
+  link: string;
 }
