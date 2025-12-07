@@ -1,90 +1,227 @@
+"use client";
+
 import Image from "next/image";
-
+import Form, {
+  ErrorMessage,
+  Field,
+  FormFooter,
+  FormHeader,
+  FormSection,
+  MessageWrapper,
+} from "@atlaskit/form";
 import PageLayout from "../common/layout/page-layout";
-import { RouteId } from "../common/types";
-import { QUICK_DONATION_LINK } from "../common/constants";
-import HorizontalLine from "../common/horizontal-line";
+import Title from "../common/title";
+import { FooterLink, RouteId } from "../common/types";
+import { Fragment, useState } from "react";
+import TextField from "@atlaskit/textfield";
+import Button from "../common/button";
+import { Mail, Phone } from "lucide-react";
+import { LeftSlider, RightSlider } from "../common/animation";
+import { validate } from "email-validator";
+import { AutoDismissFlag, FlagGroup } from "@atlaskit/flag";
 
-interface FooterLink {
-  description: string;
-  link: string;
+interface Social extends FooterLink {
+  imgUrl: string;
+  dimension: number;
 }
 
-const socials: (FooterLink & { imgUrl: string; dimension: number })[] = [
+const socials: Social[] = [
   {
     description: "Instagram",
-    link: "https://www.instagram.com/_alsakinah_",
+    link: "https://www.instagram.com",
     imgUrl: "./instagram.svg",
     dimension: 20,
   },
   {
     description: "Email",
-    link: "mailto:alsakinah.kw@gmail.com",
+    link: "mailto:",
     imgUrl: "./envelope.svg",
     dimension: 23,
   },
 ];
+type FlagType = "success" | "error";
+const flagMessages: {
+  [x in FlagType]: { title: string; description: string };
+} = {
+  success: {
+    title: "Email Added to Mailing List",
+    description:
+      "Your email address {email} has successfully been added to the our mailing list",
+  },
+  error: {
+    title: "Something went wrong",
+    description:
+      "Your email address {email} was not added to our mailing list. Please try again later.",
+  },
+};
 
-const footerLinks: FooterLink[] = [
-  {
-    description: "Open Feedback Form",
-    link: "",
-  },
-  {
-    description: "Quick Donate",
-    link: QUICK_DONATION_LINK,
-  },
-  {
-    description: "Events",
-    link: "/events",
-  },
-  {
-    description: "About Us",
-    link: "/",
-  },
-];
+const EmailSignUpCard = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [flags, setFlags] = useState<Array<{ id: number; type: FlagType }>>([]);
+  const [email, setEmail] = useState<string>("");
+
+  const addFlag = (type: FlagType) => {
+    const newFlags = flags.slice();
+    newFlags.splice(0, 0, {
+      id: flags.length + 1,
+      type,
+    });
+
+    setFlags(newFlags);
+  };
+
+  const handleDismiss = () => {
+    setFlags(flags.slice(1));
+  };
+
+  return (
+    <div className="rounded-md border p-16 content box-border grow shadow-md bg-white">
+      <Form<{ email: string }>
+        onSubmit={async (data) => {
+          const email = data.email;
+          if (!validate(email)) {
+            return {
+              email:
+                "Please enter your email in a valid format, like: name@example.com",
+            };
+          }
+
+          setEmail(email);
+          setIsLoading(true);
+          const response = await fetch(
+            "https://api.sheetmonkey.io/form/n3Kv7Dc1rYCYwmixPYDqge",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }
+          );
+          
+          if (response.ok) {
+            addFlag("success");
+          } else {
+            addFlag("error");
+          }
+
+          setIsLoading(false);
+        }}
+      >
+        {({ formProps }) => (
+          <form {...formProps}>
+            <FormHeader title="Mailing List Signup">
+              <p aria-hidden="true">
+                Subscribe to our newsletter for updates on events and
+                initiatives.
+              </p>
+            </FormHeader>
+            <FormSection>
+              <Field aria-required={true} name="email" label="Email" isRequired>
+                {({ fieldProps, error }) => (
+                  <Fragment>
+                    <TextField
+                      autoComplete="on"
+                      {...fieldProps}
+                      placeholder="Enter your email address"
+                    />
+                    <MessageWrapper>
+                      {error && <ErrorMessage>{error}</ErrorMessage>}
+                    </MessageWrapper>
+                  </Fragment>
+                )}
+              </Field>
+            </FormSection>
+            <FormFooter>
+              <Button type="submit" isLoading={isLoading} fullWidth>
+                Subscribe
+              </Button>
+            </FormFooter>
+          </form>
+        )}
+      </Form>
+      <FlagGroup onDismissed={handleDismiss}>
+        {flags.map(({ id, type }) => {
+          return (
+            <AutoDismissFlag
+              appearance={type}
+              id={id}
+              key={id}
+              title={<h2 className="font-bold">{flagMessages[type].title}</h2>}
+              description={
+                <p className="text-sm">
+                  {flagMessages[type].description.replace("{email}", email)}
+                </p>
+              }
+            />
+          );
+        })}
+      </FlagGroup>
+    </div>
+  );
+};
+
+const SocialCard = ({ description, link, dimension, imgUrl }: Social) => {
+  return (
+    <div className="flex hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 backdrop-blur-sm">
+      <a
+        href={link}
+        className="flex justify-center rounded-full p-2 border w-8 h-8 hover:bg-[#0000001a]"
+      >
+        <Image
+          src={imgUrl}
+          alt={description}
+          width={dimension}
+          height={dimension}
+        />
+      </a>
+    </div>
+  );
+};
+
+const ContactInformation = () => {
+  return (
+    <div className="h-full text-center lg:text-justify flex flex-col gap-6">
+      <div>
+        <h3 className="text-2xl font-bold mb-3">Contact Information</h3>
+        <div className="space-y-3">
+          <div className="flex items-center gap-3">
+            <Mail size={20} />
+            <span>info@manarahinstitute.org</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Phone size={20} />
+            <span>(555) 123-4567</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-xl font-bold mb-3">Follow Us</h3>
+        <div className="flex gap-4 justify-center lg:justify-normal">
+          {socials.map((social, index) => (
+            <SocialCard key={index} {...social} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Contact = () => {
   return (
-    <PageLayout id={RouteId.contact} fullPage={false}>
-      <footer className="px-1 py-2 w-full bg-white">
-        <HorizontalLine />
-        <div className="flex justify-center gap-4">
-          {socials.map(({ description, imgUrl, link, dimension }, index) => (
-            <div key={index} className="flex justify-center">
-              <a
-                href={link}
-                className="flex justify-center rounded-full p-2 bg-[#CF9C4F] w-8 h-8"
-              >
-                <Image
-                  src={imgUrl}
-                  alt={description}
-                  width={dimension}
-                  height={dimension}
-                />
-              </a>
-            </div>
-          ))}
+    <PageLayout id={RouteId.contact} spacing="none">
+      <div>
+        <Title title="Get in Touch" />
+        <div className="grid lg:grid-cols-2 gap-12">
+          <RightSlider>
+            <EmailSignUpCard />
+          </RightSlider>
+          <LeftSlider>
+            <ContactInformation />
+          </LeftSlider>
         </div>
-        <div className="text-center flex flex-wrap justify-center m-2 font-light">
-          {footerLinks.map(({ description, link }, index) => (
-            <div key={index}>
-              <a href={link} target="blank">
-                {description}
-              </a>
-              {index === footerLinks.length - 1 ? null : (
-                <span className="mx-2">&#183;</span>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="text-center font-semibold">
-          Copyright © {new Date().getFullYear()} - All right reserved by Manarah
-          Institute
-        </div>
-        <div className="text-center my-1 font-light text-md">
-          Registered Non-Profit No. ....
-        </div>
-      </footer>
+      </div>
     </PageLayout>
   );
 };
