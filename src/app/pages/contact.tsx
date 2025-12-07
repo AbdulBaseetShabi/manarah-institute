@@ -25,16 +25,21 @@ interface Social extends FooterLink {
   dimension: number;
 }
 
+export const contacts = {
+  "instagram": "https://www.instagram.com",
+  "email": "mailto:"
+}
+
 const socials: Social[] = [
   {
     description: "Instagram",
-    link: "https://www.instagram.com",
+    link: contacts.instagram,
     imgUrl: "./instagram.svg",
     dimension: 20,
   },
   {
     description: "Email",
-    link: "mailto:",
+    link: contacts.email,
     imgUrl: "./envelope.svg",
     dimension: 23,
   },
