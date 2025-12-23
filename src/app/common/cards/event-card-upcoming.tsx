@@ -66,7 +66,11 @@ export const UpcomingEventCard = ({
         </div>
         {/* Header */}
         <div className="flex flex-col gap-1.5 px-6">
-          {title && <h3 className="font-semibold text-xl text-slate-800 mb-2">{title}</h3>}
+          {title && (
+            <h3 className="font-semibold text-xl text-slate-800 mb-2">
+              {title}
+            </h3>
+          )}
           <div className="flex gap-1 text-sm text-gray-600 flex-col">
             {date && (
               <div className="flex items-center gap-1">
@@ -93,18 +97,18 @@ export const UpcomingEventCard = ({
         )}
       </div>
 
-      {signUpUrl && (
-        <div className="px-6">
-          <div>
-            <Button link={signUpUrl} fullWidth>
-              <div className="flex justify-center items-center font-medium">
-                Sign Up
-                <ExternalLink size={16} className="ml-2" />
-              </div>
-            </Button>
-          </div>
-        </div>
-      )}
+      <div className="px-6">
+        {signUpUrl ? (
+          <Button link={signUpUrl} fullWidth>
+            <div className="flex justify-center items-center font-medium">
+              Sign Up
+              <ExternalLink size={16} className="ml-2" />
+            </div>
+          </Button>
+        ) : (
+          <p>* No signup required</p>
+        )}
+      </div>
     </LeftSlider>
   );
 };
