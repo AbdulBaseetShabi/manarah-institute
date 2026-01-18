@@ -184,7 +184,7 @@ export const UpcomingEvents = () => {
   };
 
   return (
-    <PageLayout id={RouteId.upcomingEvents} backgroundColor="white">
+    <PageLayout id={RouteId.upcomingEvents} backgroundColor="ghostwhite">
       <Title title="Upcoming Events" />
       {renderContent()}
     </PageLayout>

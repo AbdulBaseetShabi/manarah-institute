@@ -58,7 +58,7 @@ export const UpcomingEventCard = ({
       <div className="flex flex-col gap-4">
         <div className="relative h-48">
           <Image
-            src={imgUrl || "/placeholder.png"}
+            src={imgUrl || ""}
             alt={title || ""}
             fill
             className="object-cover"

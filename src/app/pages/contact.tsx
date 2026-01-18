@@ -180,11 +180,11 @@ const ContactInformation = () => {
       <div>
         <h3 className="text-2xl font-bold mb-3">Contact Information</h3>
         <div className="space-y-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 justify-center lg:justify-normal">
             <Mail size={20} />
             <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 justify-center lg:justify-normal">
             <Phone size={20} />
             <a href={`tel:${LINKS.phone}`}>{LINKS.phone}</a>
           </div>
