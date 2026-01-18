@@ -1,30 +1,29 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'drive.google.com',
         port: '',
-        pathname: '/uc/**', // Allows paths starting with /uc (common for direct image links)
+        pathname: '/uc/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com', // Needed for some Google images
-        port: '',
-        pathname: '/**',
-      },
-      // You may also need a pattern for thumbnail URLs if used
       {
         protocol: 'https',
         hostname: 'drive.google.com',
         port: '',
-        pathname: '/thumbnail/**',
+        pathname: '/thumbnail',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
 
