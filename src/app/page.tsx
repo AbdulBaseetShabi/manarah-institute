@@ -7,6 +7,7 @@ import Team from "./pages/team";
 import Testimonials from "./pages/testimonials";
 import Values from "./pages/values";
 import Events from "./pages/events";
+import FloatingButton from "./common/floating-button";
 
 const Main = () => {
   return (
@@ -21,6 +22,7 @@ const Main = () => {
         <Testimonials/>
         <Contact/>
         <Footer/>
+        <FloatingButton />
       </div>
     </main>
   );

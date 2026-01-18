@@ -39,11 +39,11 @@ const Home = () => {
                 the principles of Islamic teachings.
               </p>
             </UpSlider>
-            <UpSlider delay={1.5}>
+            {/* <UpSlider delay={1.5}>
               <Button link="" size="lg">
                 {"Explore Our Upcoming Events"}
               </Button>
-            </UpSlider>
+            </UpSlider> */}
           </div>
         </div>
       </div>

@@ -25,10 +25,12 @@ interface ExcelData {
   f: string | null;
 }
 
+const LIMIT = 4;
+
 export const UpcomingEvents = () => {
   const [loading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(true);
-  const [rows, setRows] = useState<EventCard[]>([]);
+  const [rows, setRows] = useState<UpcomingEventCardProps[]>([]);
   const sheetUrl =
     "https://docs.google.com/spreadsheets/d/18FZLMayjSHS1LhnGm7wwJFpNzUwZqJb0hO2IOX28xqU/gviz/tq?sheet=Messages_";
 
@@ -56,7 +58,7 @@ export const UpcomingEvents = () => {
           const rows = (toJson.table.rows as ExcelRow[]).map((x) =>
             parseRow(x.c)
           );
-          setRows(rows);
+          setRows(filterAndSortRows(formatRows(rows)));
           setError(false);
         })
         .catch((err) => {
@@ -68,6 +70,60 @@ export const UpcomingEvents = () => {
 
     loadRows();
   });
+
+  const formatRows = (data: EventCard[]): UpcomingEventCardProps[] => {
+    return data.map((item) => ({
+      ...item,
+      imgUrl: convertImgUrl(item.imgUrl),
+      date: item.date
+        ? parse(item.date, "dd/MM/yyyy", new Date())
+        : null,
+    }));
+  }
+
+  const convertImgUrl = (url: string | null): string | null => {
+    if (!url) return null;
+
+    if (url.startsWith("https://drive.google.com/thumbnail?id=")) {
+      return url;
+    }
+    
+    if (url.match("https://drive.google.com/file/d/") ) {
+      const match = url.match(/\/d\/([a-zA-Z0-9_-]+)\//);
+      return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000` : null;
+    }
+
+    return url;
+  }
+
+  const parseTimeToDate = (timeString: string): Date => {
+    try {
+      return parse(timeString, "h:mm a", new Date());
+    } catch {
+      return new Date(0);
+    }
+  }
+
+  const filterAndSortRows = (data: UpcomingEventCardProps[]): UpcomingEventCardProps[] => {
+    const currentDate = new Date();
+    return data
+      .filter((item) => !item.date || item.date >= currentDate)
+      .sort((a, b) => {
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        const sub = a.date.getTime() - b.date.getTime();
+
+        if (sub == 0) {
+          if (!a.startTime) return 1;
+          if (!b.startTime) return -1;
+
+          const aTime = parseTimeToDate(a.startTime);
+          const bTime = parseTimeToDate(b.startTime);
+          return aTime.getTime() - bTime.getTime();
+        }
+        return sub
+      }).slice(0, LIMIT);
+  }
 
   return (
     <PageLayout id={RouteId.upcomingEvents} backgroundColor="white">
@@ -89,14 +145,8 @@ export const UpcomingEvents = () => {
       ) : (
         <div className="grid md:grid-cols-2 gap-8">
           {rows.map((data, index) => {
-            const parsedEventDate = parse(
-              `${data.date} ${data.endTime}`,
-              "dd/MM/yyyy hh:mm aaa",
-              new Date()
-            );
-
             return (
-              <UpcomingEventCard key={index} {...data} date={parsedEventDate} />
+              <UpcomingEventCard key={index} {...data} />
             );
           })}
         </div>

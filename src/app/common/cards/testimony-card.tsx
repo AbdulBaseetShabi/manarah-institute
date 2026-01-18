@@ -12,7 +12,7 @@ export const TestimonyCard = ({
 }: TestimonyCardProps) => {
   return (
     <div
-      className="rounded-md border p-16 content box-border shadow-md w-96"
+      className="rounded-md border px-16 py-8 content box-border shadow-md w-96"
       style={{ backgroundColor: index % 2 === 0 ? "ghostWhite" : "white" }}
     >
       <p>{testimony}</p>

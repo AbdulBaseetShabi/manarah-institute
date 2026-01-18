@@ -24,7 +24,7 @@ const Volunteer = () => {
                 Institute, sign up below.
               </p>
             </div>
-            <div className="mt-5 font-bold w-1/2 mx-auto md:mx-0">
+            <div className="mt-5 w-1/2 mx-auto md:mx-0">
               <Button link={""}>Volunteer Signup</Button>
             </div>
           </RightSlider>

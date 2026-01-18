@@ -2,6 +2,7 @@ import Link from "next/link";
 import routes from "./routes";
 import Button from "./button";
 import { LeftSlider, RightSlider } from "./animation";
+import LINKS from "./links";
 
 const NavigationBarDesktop = () => {
   return (
@@ -52,7 +53,7 @@ const NavigationBarDesktop = () => {
           </ul>
           <>|</>
           <div className="mx-2">
-            <Button link={""}>{"Donate"}</Button>
+            <Button link={LINKS.donate}>{"Donate"}</Button>
           </div>
         </RightSlider>
       </div>
@@ -111,7 +112,7 @@ const NavigationBarMobile = () => {
                 );
               });
             })}
-            <Button link={""}>{"Donate"}</Button>
+            <Button link={LINKS.donate}>{"Donate"}</Button>
           </ul>
         </div>
       </div>
