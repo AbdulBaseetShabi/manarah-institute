@@ -47,13 +47,12 @@ export const UpcomingEvents = () => {
     };
   };
 
-  useEffect(() => {
-    const loadRows = async () => {
+  const loadRows = async () => {
       await fetch(sheetUrl)
         .then((x) => x.text())
         .then((x) => {
           const jsonPart = x.split("setResponse(")[1];
-          const text = jsonPart.slice(0, jsonPart.length - 2);
+          const text = jsonPart.slice(0, -2);
           const toJson = JSON.parse(text);
           const rows = (toJson.table.rows as ExcelRow[]).map((x) =>
             parseRow(x.c)
@@ -68,8 +67,17 @@ export const UpcomingEvents = () => {
         .finally(() => setIsLoading(false));
     };
 
+  useEffect(() => {
     loadRows();
-  });
+
+    // Set up the interval to run every 1 minutes
+    const intervalId = setInterval(loadRows, 1 * 60 * 1000); 
+
+    // Cleanup function to clear the interval when the component unmounts
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   const formatRows = (data: EventCard[]): UpcomingEventCardProps[] => {
     return data.map((item) => ({
