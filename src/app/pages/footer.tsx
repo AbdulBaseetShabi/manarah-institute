@@ -26,7 +26,7 @@ const Footer = () => {
       <HorizontalLine />
       <div className="text-center text-gray-600 mt-4">
         Copyright © {new Date().getFullYear()} - All right reserved by Manarah
-        Institute | Registered Non-Profit No. ....
+        Institute | Registered Non-Profit No. 1637603-7
       </div>
       <div className="text-center flex flex-wrap justify-center font-light font-semibold">
         {footerLinks.map(({ description, link }, index) => (

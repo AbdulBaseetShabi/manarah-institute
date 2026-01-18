@@ -36,7 +36,7 @@ const ValueCardDesktop: React.FC<Value> = ({
   description,
 }) => (
   <RightSlider className="rounded-md border p-4 content box-border h-full shadow-md bg-white hover:shadow-xl hover:shadow-slate-200/50 hidden md:block">
-    <div className="flex flex-wrap gap-2 items-center mb-8">
+    <div className="flex flex-wrap gap-2 items-center mb-4">
       <div className="w-8 h-8">
         <Image
           src={`/icons/${icon}`}

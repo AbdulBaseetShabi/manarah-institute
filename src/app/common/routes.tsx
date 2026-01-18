@@ -41,10 +41,10 @@ const routes: Route[] = [
     id: RouteId.volunteer,
     label: "Volunteer",
   },
-  {
-    id: RouteId.testimonials,
-    label: "Testimonials",
-  },
+  // {
+  //   id: RouteId.testimonials,
+  //   label: "Testimonials",
+  // },
   {
     id: RouteId.contact,
     label: "Contact Us",
