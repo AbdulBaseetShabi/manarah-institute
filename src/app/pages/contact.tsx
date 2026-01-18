@@ -19,30 +19,20 @@ import { Mail, Phone } from "lucide-react";
 import { LeftSlider, RightSlider } from "../common/animation";
 import { validate } from "email-validator";
 import { AutoDismissFlag, FlagGroup } from "@atlaskit/flag";
+import LINKS from "../common/links";
 
 interface Social extends FooterLink {
   imgUrl: string;
   dimension: number;
 }
 
-export const contacts = {
-  "instagram": "https://www.instagram.com",
-  "email": "mailto:"
-}
-
 const socials: Social[] = [
   {
     description: "Instagram",
-    link: contacts.instagram,
+    link: LINKS.instagram,
     imgUrl: "./instagram.svg",
     dimension: 20,
-  },
-  {
-    description: "Email",
-    link: contacts.email,
-    imgUrl: "./envelope.svg",
-    dimension: 23,
-  },
+  }
 ];
 type FlagType = "success" | "error";
 const flagMessages: {
@@ -192,11 +182,11 @@ const ContactInformation = () => {
         <div className="space-y-3">
           <div className="flex items-center gap-3">
             <Mail size={20} />
-            <span>info@manarahinstitute.org</span>
+            <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a>
           </div>
           <div className="flex items-center gap-3">
             <Phone size={20} />
-            <span>(555) 123-4567</span>
+            <a href={`tel:${LINKS.phone}`}>{LINKS.phone}</a>
           </div>
         </div>
       </div>
@@ -205,7 +195,7 @@ const ContactInformation = () => {
         <h3 className="text-xl font-bold mb-3">Follow Us</h3>
         <div className="flex gap-4 justify-center lg:justify-normal">
           {socials.map((social, index) => (
-            <SocialCard key={index} {...social} />
+            <SocialCard key={social.description} {...social} />
           ))}
         </div>
       </div>

@@ -10,7 +10,7 @@ import { parse } from "date-fns";
 import { RouteId } from "@/app/common/types";
 import { useEffect, useState } from "react";
 import Loading from "@/app/common/loading";
-import { contacts } from "../contact";
+import LINKS from "@/app/common/links";
 
 interface EventCard extends Omit<UpcomingEventCardProps, "date"> {
   date: string | null;
@@ -25,10 +25,10 @@ interface ExcelData {
   f: string | null;
 }
 
-const LIMIT = 4;
+const LIMIT = 6;
 
 export const UpcomingEvents = () => {
-  const [loading, setIsLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(true);
   const [rows, setRows] = useState<UpcomingEventCardProps[]>([]);
   const sheetUrl =
@@ -37,7 +37,7 @@ export const UpcomingEvents = () => {
   const parseRow = (row: ExcelData[]): EventCard => {
     return {
       title: row[0]?.v,
-      description: row[1]?.v,
+      description: parseDescription(row[1]?.v),
       location: row[2]?.v,
       date: row[3]?.f,
       startTime: row[4]?.f,
@@ -47,6 +47,10 @@ export const UpcomingEvents = () => {
     };
   };
 
+  const parseDescription = (desc: string | null): string[] | null => {
+    if (!desc) return null;
+    return desc.split("\n").map((line) => line.trim()).filter((line) => line.length > 0);
+  }
   const loadRows = async () => {
       await fetch(sheetUrl)
         .then((x) => x.text())
@@ -64,7 +68,7 @@ export const UpcomingEvents = () => {
           console.log(err);
           setError(true);
         })
-        .finally(() => setIsLoading(false));
+        .finally(() => setLoading(false));
     };
 
   useEffect(() => {
@@ -84,7 +88,7 @@ export const UpcomingEvents = () => {
       ...item,
       imgUrl: convertImgUrl(item.imgUrl),
       date: item.date
-        ? parse(item.date, "dd/MM/yyyy", new Date())
+        ? parse(item.date, "MM/dd/yyyy", new Date())
         : null,
     }));
   }
@@ -133,32 +137,56 @@ export const UpcomingEvents = () => {
       }).slice(0, LIMIT);
   }
 
-  return (
-    <PageLayout id={RouteId.upcomingEvents} backgroundColor="white">
-      <Title title="Upcoming Events" />
-      {loading ? (
+  const renderContent = () => {
+    if (loading) {
+      return (
         <div className="flex flex-col justify-center items-center gap-2">
           <Loading />
           <p>Fetching Upcoming Events</p>
         </div>
-      ) : error ? (
+      );
+    }
+
+    if (error) {
+      return (
         <div className="w-full text-center">
           <h3 className="text-2xl font-bold">*** Error ***</h3>
           <p >
             An error occurred whilst trying to fetch the upcoming event. Please
             try reloading the page to resolve the issue, if this does not work -
-            reach out to us on <a href={contacts.instagram} target="_blank">Instagram</a> to let us know
+            reach out to us on <a href={LINKS.instagram} target="_blank">Instagram</a> to let us know
           </p>
         </div>
-      ) : (
-        <div className="grid md:grid-cols-2 gap-8">
-          {rows.map((data, index) => {
-            return (
-              <UpcomingEventCard key={index} {...data} />
-            );
-          })}
+      );
+    }
+
+    if (rows.length === 0) {
+      return (
+        <div className="w-full text-center">
+          <p>
+            There are currently no upcoming events. Please check back later or
+            reach out to us on <a href={LINKS.instagram} target="_blank">Instagram</a> for more information.
+          </p>
         </div>
-      )}
+      );
+    }
+
+    return (
+      <div className="grid md:grid-cols-2 gap-8">
+        {rows.map((data) => {
+          const uniqueKey = `${data.title}-${data.date?.getTime() || 'no-date'}-${data.startTime || 'no-time'}`;
+          return (
+            <UpcomingEventCard key={uniqueKey} {...data} />
+          );
+        })}
+      </div>
+    );
+  };
+
+  return (
+    <PageLayout id={RouteId.upcomingEvents} backgroundColor="white">
+      <Title title="Upcoming Events" />
+      {renderContent()}
     </PageLayout>
   );
 };

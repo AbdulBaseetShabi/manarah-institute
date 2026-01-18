@@ -21,19 +21,29 @@ const teamMembers: TeamMemberProp[] = [
   },
   {
     gender: "MALE",
-    name: "Hasan Syed",
+    name: "Sundus Abbas",
     role: "Head of External Relations",
   },
   {
-    gender: "MALE",
+    gender: "FEMALE",
     role: "Head of Administration",
-    name: "Humzah Ahmad",
+    name: "Munazza Ahmad",
   },
   {
     gender: "FEMALE",
     name: "Yasmine Belahlou",
     role: "Head of Engagement & Hospitality",
   },
+  {
+    gender: "MALE",
+    name: "Humzah Ahmad",
+    role: "Head of Event Planning",
+  },
+  {
+    gender: "MALE",
+    name: "Hasaan Bashir",
+    role: "Head of Finance",
+  }
 ];
 
 const CoreTeam = () => {

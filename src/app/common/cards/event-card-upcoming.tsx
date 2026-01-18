@@ -6,7 +6,7 @@ import { LeftSlider } from "../animation";
 
 export interface UpcomingEventCardProps {
   title: string | null;
-  description: string | null;
+  description: string[] | null;
   location: string | null;
   date: Date | null;
   startTime: string | null;
@@ -90,10 +90,14 @@ export const UpcomingEventCard = ({
           </div>
         </div>
         {/* Description */}
-        {description && (
-          <p className="text-sm text-gray-700 mb-4 leading-relaxed px-6">
-            {description}
-          </p>
+        {description && description.length > 0 && (
+          <div className="mb-4 leading-relaxed px-6 text-sm text-gray-700">
+            {description.map((paragraph, index) => (
+              <p key={index} className="mb-2">
+                {paragraph}
+              </p>
+            ))}
+          </div>
         )}
       </div>
 
