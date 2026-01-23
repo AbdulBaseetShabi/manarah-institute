@@ -15,7 +15,11 @@ const NavigationBarDesktop = () => {
         </LeftSlider>
         <RightSlider className="navbar-end flex">
           <ul className="menu menu-horizontal px-1">
-            {routes.map(({ id, label, sub_routes }, index) => {
+            {routes.map(({ id, label, sub_routes, hide }, index) => {
+              if (hide) {
+                return null;
+              }
+
               if (!sub_routes) {
                 return (
                   <li key={index}>
@@ -92,7 +96,11 @@ const NavigationBarMobile = () => {
             tabIndex={0}
             className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-white rounded-box w-52"
           >
-            {routes.map(({ id, label, sub_routes }, index) => {
+            {routes.map(({ id, label, sub_routes, hide }, index) => {
+              if (hide) {
+                return null;
+              }
+
               if (!sub_routes) {
                 return (
                   <li

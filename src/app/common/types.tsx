@@ -1,3 +1,5 @@
+import React from "react";
+
 export enum RouteId {
   home = "home",
   values = "values",
@@ -16,8 +18,9 @@ export enum RouteId {
 export interface Route {
   id: RouteId;
   label: string;
-  sub_routes?: Omit<Route, "sub_routes">[];
+  sub_routes?: Omit<Route, "sub_routes" | "view">[];
   hide?: boolean;
+  view: React.ReactNode;
 }
 
 export interface MainEvent {

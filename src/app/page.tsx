@@ -1,26 +1,26 @@
 import NavigationBar from "./common/navigation-bar";
 import Footer from "./pages/footer";
-import Contact from "./pages/contact";
-import Home from "./pages/home";
-import Volunteer from "./pages/volunteer";
-import Team from "./pages/team";
-// import Testimonials from "./pages/testimonials";
-import Values from "./pages/values";
-import Events from "./pages/events";
 import FloatingButton from "./common/floating-button";
+import routes from "./common/routes";
 
 const Main = () => {
   return (
     <main>
       <NavigationBar />
       <div>
-        <Home />
-        <Values/>
-        <Events />
-        <Team />
-        <Volunteer />
-        {/* <Testimonials/> */}
-        <Contact/>
+        {
+          routes.map(({ id, view, hide }, index) => {
+            if (hide) {
+              return null;
+            }
+
+            return (
+              <section key={id} id={id} className="w-full">
+                {view}
+              </section>
+            );
+          })
+        }
         <Footer/>
         <FloatingButton />
       </div>

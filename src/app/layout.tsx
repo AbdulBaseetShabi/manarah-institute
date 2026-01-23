@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "Manarah Institute",
   description: "Manarah Institute Website",
   icons: {
-    icon: "/main-logo.jpg",
+    icon: "/icon.png",
   },
 };
 
