@@ -31,6 +31,7 @@ export const UpcomingEvents = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(true);
   const [rows, setRows] = useState<UpcomingEventCardProps[]>([]);
+  const [openDescriptionIndex, setOpenDescriptionIndex] = useState<number | null>(null);
   const sheetUrl =
     "https://docs.google.com/spreadsheets/d/18FZLMayjSHS1LhnGm7wwJFpNzUwZqJb0hO2IOX28xqU/gviz/tq?sheet=Messages_";
 
@@ -173,10 +174,17 @@ export const UpcomingEvents = () => {
 
     return (
       <div className="grid md:grid-cols-2 gap-8">
-        {rows.map((data) => {
+        {rows.map((data, index) => {
           const uniqueKey = `${data.title}-${data.date?.getTime() || 'no-date'}-${data.startTime || 'no-time'}`;
           return (
-            <UpcomingEventCard key={uniqueKey} {...data} />
+            <UpcomingEventCard 
+              key={uniqueKey} 
+              {...data}
+              isDescriptionOpen={openDescriptionIndex === index}
+              onToggleDescription={() => {
+                setOpenDescriptionIndex(openDescriptionIndex === index ? null : index);
+              }}
+            />
           );
         })}
       </div>

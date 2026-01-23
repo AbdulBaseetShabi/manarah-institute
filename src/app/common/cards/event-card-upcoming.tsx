@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Button from "../button";
-import { Calendar, Clock, ExternalLink, MapPin } from "lucide-react";
+import { Calendar, Clock, ExternalLink, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import { LeftSlider } from "../animation";
 
 export interface UpcomingEventCardProps {
@@ -13,6 +13,8 @@ export interface UpcomingEventCardProps {
   endTime: string | null;
   imgUrl: string | null;
   signUpUrl: string | null;
+  isDescriptionOpen?: boolean;
+  onToggleDescription?: () => void;
 }
 
 const Time = ({
@@ -51,17 +53,20 @@ export const UpcomingEventCard = ({
   endTime,
   signUpUrl,
   imgUrl,
+  isDescriptionOpen = false,
+  onToggleDescription,
 }: UpcomingEventCardProps) => {
   return (
     <LeftSlider className="flex flex-col gap-4 justify-between rounded-xl py-6 hover:shadow-xl hover:shadow-slate-200/50 border bg-white/80 backdrop-blur-sm">
       {/* Content */}
       <div className="flex flex-col gap-4">
-        <div className="relative h-48">
+        <div className="relative">
           <Image
             src={imgUrl || ""}
             alt={title || ""}
-            fill
-            className="object-cover"
+            width={1080}
+            height={1080}
+            className="object-cover w-full h-full"
           />
         </div>
         {/* Header */}
@@ -89,15 +94,27 @@ export const UpcomingEventCard = ({
             </div>
           </div>
         </div>
-        {/* Description */}
+        
+        {/* Mobile View Description Toggle */}
         {description && description.length > 0 && (
-          <div className="mb-4 leading-relaxed px-6 text-sm text-gray-700">
-            {description.map((paragraph, index) => (
-              <p key={index} className="mb-2">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <>
+            <button
+              onClick={onToggleDescription}
+              className="md:hidden flex items-center justify-between px-6 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+            >
+              <span>View Description</span>
+              {isDescriptionOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
+            
+            {/* Description - Hidden on mobile unless open, always visible on desktop */}
+            <div className={`leading-relaxed px-6 text-sm text-gray-700 transition-all duration-300 ${isDescriptionOpen ? 'block mb-4' : 'hidden'} md:block md:mb-4`}>
+              {description.map((paragraph) => (
+                <p key={paragraph} className="mb-2">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </>
         )}
       </div>
 
