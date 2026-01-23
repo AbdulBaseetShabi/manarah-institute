@@ -5,12 +5,13 @@ import Button from "./button";
 import { LeftSlider, RightSlider } from "./animation";
 import LINKS from "./links";
 
+const LOGO = "/main-logo.jpg";
 const NavigationBarDesktop = () => {
   return (
     <nav>
       <div className="navbar hidden md:flex">
         <LeftSlider className="navbar-start pl-4">
-          <Image src="/logo.png" alt="Manarah Institute Logo" width={150} height={50} className="h-16 w-auto" />
+          <Image src={LOGO} alt="Manarah Institute Logo" width={150} height={50} className="h-12 w-auto" />
         </LeftSlider>
         <RightSlider className="navbar-end flex">
           <ul className="menu menu-horizontal px-1">
@@ -68,7 +69,7 @@ const NavigationBarMobile = () => {
   return (
     <nav className="navbar flex md:hidden justify-between">
       <div className="navbar-center">
-        <Image src="/logo.png" alt="Manarah Institute Logo" width={120} height={40} className="h-12 w-auto" />
+        <Image src={LOGO} alt="Manarah Institute Logo" width={120} height={40} className="h-8 w-auto" />
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">

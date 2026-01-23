@@ -181,7 +181,7 @@ export const UpcomingEvents = () => {
     }
 
     return (
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-3 gap-8">
         {rows.map((data, index) => {
           const uniqueKey = `${data.title}-${data.date?.getTime() || 'no-date'}-${data.startTime || 'no-time'}`;
           return (
