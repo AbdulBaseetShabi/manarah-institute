@@ -89,7 +89,7 @@ export const UpcomingEvents = () => {
       ...item,
       imgUrl: convertImgUrl(item.imgUrl),
       date: item.date
-        ? parse(item.date, "MM/dd/yyyy", new Date())
+        ? parse(`${item.date}`, "MM/dd/yyyy", new Date())
         : null,
     }));
   }
@@ -117,10 +117,18 @@ export const UpcomingEvents = () => {
     }
   }
 
+  const getExecptedEndDate = (date: Date): Date => {
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + 1); // Move to next day
+    endDate.setHours(23, 59, 59, 999);
+    return endDate;
+  }
+
   const filterAndSortRows = (data: UpcomingEventCardProps[]): UpcomingEventCardProps[] => {
     const currentDate = new Date();
+
     return data
-      .filter((item) => !item.date || item.date >= currentDate)
+      .filter((item) => !item.date || getExecptedEndDate(item.date) >= currentDate)
       .sort((a, b) => {
         if (!a.date) return 1;
         if (!b.date) return -1;
