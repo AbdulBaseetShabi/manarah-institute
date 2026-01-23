@@ -70,7 +70,7 @@ const EmailSignUpCard = () => {
   };
 
   return (
-    <div className="rounded-md border p-16 content box-border grow shadow-md bg-white">
+    <div className="rounded-md border p-8 md:p-16 content box-border grow shadow-md bg-white">
       <Form<{ email: string }>
         onSubmit={async (data) => {
           const email = data.email;
