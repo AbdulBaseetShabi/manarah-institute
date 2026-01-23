@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import routes from "./routes";
 import Button from "./button";
 import { LeftSlider, RightSlider } from "./animation";
@@ -8,7 +9,9 @@ const NavigationBarDesktop = () => {
   return (
     <nav>
       <div className="navbar hidden md:flex">
-        <LeftSlider className="navbar-start pl-4">Logo</LeftSlider>
+        <LeftSlider className="navbar-start pl-4">
+          <Image src="/logo.png" alt="Manarah Institute Logo" width={150} height={50} className="h-16 w-auto" />
+        </LeftSlider>
         <RightSlider className="navbar-end flex">
           <ul className="menu menu-horizontal px-1">
             {routes.map(({ id, label, sub_routes }, index) => {
@@ -64,7 +67,9 @@ const NavigationBarDesktop = () => {
 const NavigationBarMobile = () => {
   return (
     <nav className="navbar flex md:hidden justify-between">
-      <div className="navbar-center">Logo</div>
+      <div className="navbar-center">
+        <Image src="/logo.png" alt="Manarah Institute Logo" width={120} height={40} className="h-12 w-auto" />
+      </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-square btn-ghost">
@@ -112,7 +117,9 @@ const NavigationBarMobile = () => {
                 );
               });
             })}
-            <Button link={LINKS.donate}>{"Donate"}</Button>
+            <div className="mt-4 w-full">
+              <Button link={LINKS.donate} fullWidth>{"Donate"}</Button>
+            </div>
           </ul>
         </div>
       </div>
