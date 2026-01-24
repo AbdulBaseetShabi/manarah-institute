@@ -24,14 +24,22 @@ import LINKS from "../common/links";
 interface Social extends FooterLink {
   imgUrl: string;
   dimension: number;
+  hide?: boolean;
 }
 
 const socials: Social[] = [
   {
     description: "Instagram",
     link: LINKS.instagram,
-    imgUrl: "./instagram.svg",
-    dimension: 20,
+    imgUrl: "./instagram-icon.svg",
+    dimension: 25,
+  },
+  {
+    description: "WhatsApp",
+    link: LINKS.whatsapp,
+    imgUrl: "./whatsapp-icon.svg",
+    dimension: 25,
+    hide: true,
   }
 ];
 type FlagType = "success" | "error";
@@ -93,7 +101,7 @@ const EmailSignUpCard = () => {
               body: JSON.stringify(data),
             }
           );
-          
+
           if (response.ok) {
             addFlag("success");
           } else {
@@ -158,43 +166,69 @@ const EmailSignUpCard = () => {
 
 const SocialCard = ({ description, link, dimension, imgUrl }: Social) => {
   return (
-    <div className="flex hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 backdrop-blur-sm">
-      <a
-        href={link}
-        className="flex justify-center rounded-full p-2 border w-8 h-8 hover:bg-[#0000001a]"
-      >
+    <a
+      href={link}
+      target="_blank"
+      className="flex justify-center rounded-full p-2 border w-9 h-9 hover:bg-[#0000001a]"
+    >
+      <div className="flex hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 backdrop-blur-sm">
         <Image
           src={imgUrl}
           alt={description}
           width={dimension}
           height={dimension}
         />
-      </a>
-    </div>
+      </div>
+    </a>
   );
 };
 
 const ContactInformation = () => {
+  const whatsappSocial = socials.find(social => social.description === "WhatsApp")!;
   return (
     <div className="h-full text-center lg:text-justify flex flex-col gap-6">
       <div>
         <h3 className="text-2xl font-bold mb-3">Contact Information</h3>
-        <div className="space-y-3">
-          <div className="flex items-center gap-3 justify-center lg:justify-normal">
-            <Mail size={20} />
-            <a href={`mailto:${LINKS.email}`}>{LINKS.email}</a>
-          </div>
-          <div className="flex items-center gap-3 justify-center lg:justify-normal">
-            <Phone size={20} />
-            <a href={`tel:${LINKS.phone}`}>{LINKS.phone}</a>
-          </div>
+        <div className="flex flex-col gap-2">
+          <a href={`mailto:${LINKS.email}`} target="_blank" rel="noopener noreferrer">
+            <div className="flex items-center gap-3 justify-center lg:justify-normal">
+              <Mail size={20} />
+              <span >{LINKS.email}</span>
+            </div>
+          </a>
+          <a href={`tel:${LINKS.phone}`} target="_blank" rel="noopener noreferrer">
+            <div className="flex items-center gap-3 justify-center lg:justify-normal">
+              <Phone size={20} />
+              <span>{LINKS.phone}</span>
+            </div>
+          </a>
         </div>
       </div>
 
       <div>
-        <h3 className="text-xl font-bold mb-3">Follow Us</h3>
+        <h4 className="text-lg font-bold mb-3">Join Our Community</h4>
+        <a
+          href={LINKS.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="flex items-center gap-3 justify-center lg:justify-normal">
+            <Image
+              src={whatsappSocial.imgUrl}
+              alt={whatsappSocial.description}
+              width={whatsappSocial.dimension}
+              height={whatsappSocial.dimension}
+            />
+            <span className="hover:underline">Join us on WhatsApp</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div>
+        <h4 className="text-lg font-bold mb-3">Follow Us</h4>
         <div className="flex gap-4 justify-center lg:justify-normal">
-          {socials.map((social, index) => (
+          {socials.filter(social => !social.hide).map((social) => (
             <SocialCard key={social.description} {...social} />
           ))}
         </div>

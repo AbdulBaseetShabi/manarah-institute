@@ -1,7 +1,5 @@
 import { MainEvent, Testimonial } from "./types";
 
-export const QUICK_DONATION_LINK = "google.com";
-
 export const MAIN_EVENTS: MainEvent[] = [
     {
         image: "bbq/IMG_3515.jpg",

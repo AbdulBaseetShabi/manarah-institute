@@ -1,4 +1,3 @@
-import { QUICK_DONATION_LINK } from "../common/constants";
 import HorizontalLine from "../common/horizontal-line";
 import { FooterLink } from "../common/types";
 
