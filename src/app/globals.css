@@ -14,9 +14,13 @@ html {
 position: relative;
 background-color: white;
 color: black;
+overflow-x: hidden;
 }
 
 body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
