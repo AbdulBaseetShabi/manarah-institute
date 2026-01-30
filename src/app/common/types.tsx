@@ -55,3 +55,8 @@ export interface FooterLink {
   description: string;
   link: string;
 }
+
+export interface Message {
+    title: string;
+    description: string;
+}

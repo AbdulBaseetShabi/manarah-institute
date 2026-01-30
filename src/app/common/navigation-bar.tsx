@@ -1,12 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import routes from "./routes";
 import Button from "./button";
 import { LeftSlider, RightSlider } from "./animation";
 import LINKS from "./links";
+import AlertModal from "./alert-modal";
+import React from "react";
+import { MessageKey, messages } from "./messages";
 
 const LOGO = "/main-logo.jpg";
 const NavigationBarDesktop = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   return (
     <nav>
       <div className="navbar hidden md:flex">
@@ -22,10 +29,10 @@ const NavigationBarDesktop = () => {
 
               if (!sub_routes) {
                 return (
-                  <li key={index}>
+                  <li key={label}>
                     <a
                       href={`#${id}`}
-                      className="hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                      className="hover:bg-ghostwhite hover:text-black rounded-md px-3 py-2 text-sm font-medium"
                     >
                       {label}
                     </a>
@@ -34,8 +41,8 @@ const NavigationBarDesktop = () => {
               }
 
               return (
-                <li key={index}>
-                  <div className="dropdown dropdown-bottom dropdown-end dropdown-hover hover:bg-gray-700 hover:text-white">
+                <li key={label}>
+                  <div className="dropdown dropdown-bottom dropdown-end dropdown-hover hover:bg-ghostwhite hover:text-black">
                     <div tabIndex={0} className="text-sm font-medium">
                       {label}
                     </div>
@@ -47,7 +54,7 @@ const NavigationBarDesktop = () => {
                         <li key={index}>
                           <a
                             href={`#${id}`}
-                            className="hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium text-black cursor-pointer"
+                            className="hover:bg-ghostwhite hover:text-black rounded-md px-3 py-2 text-sm font-medium text-black cursor-pointer"
                           >
                             {label}
                           </a>
@@ -59,17 +66,20 @@ const NavigationBarDesktop = () => {
               );
             })}
           </ul>
-          <>|</>
+          |
           <div className="mx-2">
-            <Button link={LINKS.donate}>{"Donate"}</Button>
+            <Button link={LINKS.donate} onClick={() => setIsOpen(true)}>{"Donate"}</Button>
           </div>
         </RightSlider>
       </div>
+      {isOpen && <AlertModal message={messages[MessageKey.donationUnavailable]} handleClose={() => setIsOpen(false)} />}
     </nav>
   );
 };
 
 const NavigationBarMobile = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   return (
     <nav className="navbar flex md:hidden justify-between">
       <div className="navbar-center">
@@ -104,8 +114,8 @@ const NavigationBarMobile = () => {
               if (!sub_routes) {
                 return (
                   <li
-                    key={index}
-                    className="hover:bg-[#3A3042] text-black hover:text-white rounded-md"
+                    key={label}
+                    className="hover:bg-ghostwhite text-black hover:text-black rounded-md"
                   >
                     <a href={`#${id}`} className="">
                       {label}
@@ -120,18 +130,19 @@ const NavigationBarMobile = () => {
                 }
 
                 return (
-                  <li key={index}>
+                  <li key={label}>
                     <Link href={`#${id}`}>{label}</Link>
                   </li>
                 );
               });
             })}
             <div className="mt-4 w-full">
-              <Button link={LINKS.donate} fullWidth>{"Donate"}</Button>
+              <Button link={LINKS.donate} fullWidth onClick={() => setIsOpen(true)}>{"Donate"}</Button>
             </div>
           </ul>
         </div>
       </div>
+      {isOpen && <AlertModal message={messages[MessageKey.donationUnavailable]} handleClose={() => setIsOpen(false)} />}
     </nav>
   );
 };

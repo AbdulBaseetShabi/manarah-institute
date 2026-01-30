@@ -4,6 +4,7 @@ import React from "react";
 const Button: React.FC<{
   children: React.ReactNode;
   link?: string;
+  onClick?: () => void;
   isPrimarySolid?: boolean;
   type?: "submit" | "button";
   fullWidth?: boolean;
@@ -17,6 +18,7 @@ const Button: React.FC<{
   fullWidth = false,
   type = "button",
   isLoading = false,
+  onClick
 }) => {
   const colorProperties = isPrimarySolid
     ? `text-white bg-[#3A3042] ${
@@ -25,15 +27,23 @@ const Button: React.FC<{
     : "custom-button bg-white text-black";
 
   const spacing = size === "md" ? "py-1.5 px-3.5" : "px-8 py-3";
+  
+  const onClickHandler = () => {
+    if (onClick) {
+      onClick();
+    } else if (type === "button" && link && link.length > 0) {
+      window.open(link, "_blank");
+    }
+
+    return undefined
+  }
   return (
     <button
       className={`border-2 border-transparent text-lg text-center ${colorProperties} ${spacing} ${
         fullWidth ? "w-full" : ""
       }`}
       type={type}
-      onClick={
-        type === "button" ? () => window.open(link, "_blank") : undefined
-      }
+      onClick={onClickHandler}
       disabled={isLoading}
     >
       {isLoading ? (
