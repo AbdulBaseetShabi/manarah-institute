@@ -24,9 +24,10 @@ export interface Route {
 }
 
 export interface MainEvent {
-  image: string;
+  images: string[];
   title: string;
   descriptions: string[];
+  routePrefix: string;
 }
 
 export interface UpcomingEvent {
